@@ -1,22 +1,45 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Login = () => {
     const [getUsuario, setUsuario] = useState("");
     const [getContrasena, setContrasena] = useState("");
     let redireccion = useNavigate();
 
+    
+
     const [usuario, setUsuarios] = useState([]);
 
-    const buscarUsuario = () => {
-        let estado = usuario.some((usuario) => {
-            if (getUsuario === usuario.usuario 
-                && getContrasena === usuario.contrasena ) 
-                 {
-                return true;
-            }
+    const getUsuarios = async () => {
+
+                axios.get("http://localhost:8080/storeapi/v1/usuario")
+        .then(response => {
+            setUsuarios(response.data)
+            
+        })
+        .catch(error => {
+            
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al registrar el usuario",
+                icon: "error",
+            });
         });
+     
+        }
+        
+    
+
+    useEffect (() => {
+        
+        getUsuarios ()
+
+    },[])
+
+    const buscarUsuario = () => {
+        let estado = usuario.some((user) => getUsuario === user.correo)
         return estado;
     }
 

@@ -11,16 +11,7 @@ function LogosSection() {
     <div className="content">
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 justify-center items-center">
         <div>
-          <Link to="">
-            <img
-              src={ImagenUno}
-              alt=""
-              className="w-1/2 mx-auto mt-10"
-            />
-          </Link>
-        </div>
-        <div>
-          <Link to="">
+          <Link to="/AmericanEagle">
             <img
               src={ImagenDos}
               alt=""
@@ -29,7 +20,16 @@ function LogosSection() {
           </Link>
         </div>
         <div>
-          <Link to="">
+          <Link to="/Chevignon">
+            <img
+              src={ImagenUno}
+              alt=""
+              className="w-1/2 mx-auto mt-10"
+            />
+          </Link>
+        </div>
+        <div>
+          <Link to="/Esprit">
             <img
               src={ImagenTres}
               alt=""
@@ -38,7 +38,7 @@ function LogosSection() {
           </Link>
         </div>
         <div>
-          <Link to="">
+          <Link to="/GStarRaw">
             <img
               src={ImagenCuatro}
               alt=""

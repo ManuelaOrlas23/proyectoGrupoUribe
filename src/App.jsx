@@ -8,17 +8,8 @@ import GstarRaw from "./components/layouts/pages/GstarRaw";
 import NavBar from "./components/NavBar";
 import Login from "./components/layouts/auth/Login";
 import Registro from "./components/layouts/auth/Registro";
+import Carrito from "./components/layouts/pages/Carrito";
 
-let router = createBrowserRouter([
-  {
-    path: "/Login",
-    element: <Login />,
-  },
-  {
-    path: "/Registro",
-    element: <Registro />,
-  },
-]);
 
 function App() {
   return (
@@ -33,9 +24,10 @@ function App() {
         <Route path="Gstarraw" element={<GstarRaw />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Registro" element={<Registro />} />
+        <Route path="/Carrito" element={<Carrito />} />
       </Routes>
     </Router>
-    <RouterProvider router={router} />
+   
   </div>
   );
 }

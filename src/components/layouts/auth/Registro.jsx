@@ -16,54 +16,46 @@ const Registro = () => {
   const [getDepartamento, setDepartamento] = useState("");
   const [getMunicipio, setMunicipio] = useState("");
   const [getCodigoPostal, setCodigoPostal] = useState("");
-  const [getGenero, setGenero] = useState("");
+  const [getGenero, setGenero] = useState("f");
 
   let redireccion = useNavigate();
 
-  const buscarUsuario = () => {
-    let estado = usuario.some((usuario) => {
-      if (
-        getUsuarios === usuario.usuario &&
-        getContrasenas === usuario.contrasena &&
-        getApellidos === usuario.apellido &&
-        getCedula === usuario.cedula &&
-        getDireccion === usuario.direccion &&
-        getCorreos === usuario.correo &&
-        getPais === usuario.pais &&
-        getDepartamento === usuario.departamento &&
-        getMunicipio === usuario.municipio &&
-        getCodigoPostal === usuario.codigoPostal &&
-        getGenero === usuario.genero
-      ) {
-        return true;
-      }
-    });
-    return estado;
-  };
-  const agregarUsuario = async () => {
-    let usuarioNuevo = {
-      id: Math.round(Math.random() * 100).toFixed(0),
-      usuario: getUsuarios,
-      contrasena: getContrasenas,
-    };
-    await axios.post(usuarioNuevo);
-  };
-
-  const registrarUsuario = (e) => {
+  const registrarUsuario = async (e) => {
+    debugger
     e.preventDefault();
-    if (buscarUsuario()) {
-      Swal.fire({
-        title: "Error",
-        text: "Usuario ya existe en la base de datos",
-        icon: "error",
-      });
-    } else {
+
+    const usuarioNuevo = {
+      usuario: getCorreos,
+      apellidos: getApellidos,
+      cedula: getCedula,
+      direccion: getDireccion,
+      correo: getCorreos,
+      contrasena: getContrasenas,
+      pais: getPais,
+      departamento: getDepartamento,
+      municipio: getMunicipio,
+      codigoPostal: getCodigoPostal,
+      sexo: getGenero,
+      nombres: getUsuarios,
+      medioPago: ""
+    };
+
+    try {
+      const response = await axios.post("http://localhost:8080/storeapi/v1/usuario", usuarioNuevo);
+      console.log(response.data); // Manejar la respuesta de la API según tus necesidades
       Swal.fire({
         title: "Bienvenido!",
         text: "Seras redireccionado al login",
         icon: "success",
       });
       redireccion("/Login");
+    } catch (error) {
+      console.error("Error al registrar usuario:");
+      Swal.fire({
+        title: "Error",
+        text: "Hubo un error al registrar el usuario",
+        icon: "error",
+      });
     }
   };
   return (
@@ -164,21 +156,22 @@ const Registro = () => {
               htmlFor="genero"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Genero
+              Sexo
             </label>
-            <select name="" id="">
+            <select name="" id=""  onChange={(e) => {
+                setGenero(e.target.value);
+              
+              }}>
               <option
-                value="mujer"
+                value="f"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
                 Mujer
               </option>
               <option
-                value="hombre"
+                value="m"
                 className="block text-gray-700 text-sm font-bold mb-2"
-              onChange={(e) => {
-                setGenero(e.target.value);
-              }}
+             
               >
                 Hombre
               </option>
